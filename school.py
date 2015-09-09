@@ -97,6 +97,7 @@ class SchoolTech(PackItem):
         self.name   = None
         self.rank   = None
         self.desc   = None
+        self.modifiers = []
 
     @staticmethod
     def build_from_xml(elem):
@@ -108,6 +109,10 @@ class SchoolTech(PackItem):
 
         # HACK. remove eol to allow exporters to be in charge of the text wrapping
         f.desc = f.desc.replace('\n', '')
+
+        # modifiers
+        from modifier import Modifier
+        f.modifiers = Modifier.build_list_from_xml(elem.find('Modifiers'))
 
         return f
 

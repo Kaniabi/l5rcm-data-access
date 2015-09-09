@@ -16,6 +16,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 import uuid
+from modifier import Modifier
 from xmlutils import *
 from packitem import PackItem
 
@@ -34,6 +35,25 @@ class MasteryAbility(PackItem):
         f.rank = int(elem.attrib['rank'])
         f.rule = elem.attrib['rule'] if ('rule' in elem.attrib) else None
         f.desc = elem.text
+        return f
+
+    def write_into(self, elem):
+        pass
+
+
+class MasteryModifier(Modifier):
+
+    TAG = 'MasteryModifier'
+
+    def __init__(self):
+        super(MasteryModifier, self).__init__()
+        self.rank = None
+
+    @staticmethod
+    def build_from_xml(elem):
+        f = MasteryModifier()
+        Modifier.fill_from_xml(f, elem)
+        f.rank = int(elem.attrib['rank'])
         return f
 
     def write_into(self, elem):
@@ -86,6 +106,7 @@ class Skill(PackItem):
 
         self.tags              = []
         self.mastery_abilities = []
+        self.mastery_modifiers = []
 
         self.desc = ""
 
@@ -106,6 +127,7 @@ class Skill(PackItem):
             for se in elem.find('MasteryAbilities').iter():
                 if se.tag == 'MasteryAbility':
                     f.mastery_abilities.append(MasteryAbility.build_from_xml(se))
+        f.modifiers = MasteryModifier.build_list_from_xml(elem.find('MasteryModifiers'))
 
         f.desc = read_sub_element_text(elem, 'Description', "").strip()
 

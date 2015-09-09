@@ -112,6 +112,7 @@ class Perk(object):
         self.rule  = None
         self.desc  = None
         self.ranks = []
+        self.modifiers = []
 
     @staticmethod
     def build_from_xml(elem):
@@ -125,6 +126,11 @@ class Perk(object):
         for se in elem.iter():
             if se.tag == 'Rank':
                 f.ranks.append(PerkRank.build_from_xml(se))
+
+        # modifiers
+        from modifier import Modifier
+        f.modifiers = Modifier.build_list_from_xml(elem.find('Modifiers'))
+
         return f
 
     def write_into(self, name, elem):
