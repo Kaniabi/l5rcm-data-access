@@ -15,16 +15,16 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-from clan import *
-from family import *
-from school import *
-from skill import *
-from spell import *
-from perk import *
-from powers import *
-from weapon import *
-from generic import *
-from requirements import *
+from .clan import *
+from .family import *
+from .school import *
+from .skill import *
+from .spell import *
+from .perk import *
+from .powers import *
+from .weapon import *
+from .generic import *
+from .requirements import *
 
 import os
 import json

@@ -15,11 +15,12 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-from xmlutils import *
 import uuid
 import lxml.etree as ET
 
-from packitem import PackItem
+from .xmlutils import *
+from .packitem import PackItem
+from .modifier import Modifier
 
 
 class PerkCateg(PackItem):
@@ -128,7 +129,6 @@ class Perk(object):
                 f.ranks.append(PerkRank.build_from_xml(se))
 
         # modifiers
-        from modifier import Modifier
         f.modifiers = Modifier.build_list_from_xml(elem.find('Modifiers'))
 
         return f

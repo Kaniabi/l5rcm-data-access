@@ -1,5 +1,5 @@
-from xmlutils import *
-from packitem import PackItem
+from .xmlutils import *
+from .packitem import PackItem
 
 
 
